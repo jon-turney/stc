@@ -1,0 +1,56 @@
+name: stc
+on:
+ push:
+   # since master is a symbolic reference to main, don't run for both
+   branches-ignore:
+     - 'master'
+
+jobs:
+  stc:
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - pkgarch: x86_64
+
+    steps:
+    - run: git config --global core.autocrlf input
+    - uses: actions/checkout@v4
+
+    # install cygwin and build tools
+    - name: Install Cygwin
+      uses: cygwin/cygwin-install-action@master
+      with:
+        platform: ${{ matrix.pkgarch }}
+        packages: |
+          gcc-g++
+          meson
+          ninja
+        allow-test-packages: true
+
+    # build
+    - name: Build tests
+      run: |
+        export PATH=/usr/bin:$(cygpath ${SYSTEMROOT})/system32
+        meson setup _build
+        ninja -C _build
+      shell: bash --noprofile --norc -o igncr -eo pipefail '{0}'
+
+    # test
+    - name: Run tests
+      run: |
+        export PATH=/usr/bin:$(cygpath ${SYSTEMROOT})/system32
+        uname -a
+        meson test -C _build
+      shell: bash --noprofile --norc -o igncr -eo pipefail '{0}'
+
+    # upload test logs to facilitate investigation of problems
+    - name: Upload test logs
+      uses: actions/upload-artifact@v4
+      with:
+        name: stc-logs
+        path: |
+          _build/meson-logs
+      if: ${{ !cancelled() }}
