@@ -3,6 +3,7 @@ add_languages('c')
 
 subdir('compilation')
 subdir('coredump')
+subdir('cygwin')
 subdir('filesystem')
 subdir('fortify')
 subdir('locale')
