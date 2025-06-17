@@ -5,5 +5,6 @@ subdir('compilation')
 subdir('coredump')
 subdir('fortify')
 subdir('locale')
+subdir('pathconv')
 
 subdir('broken')
