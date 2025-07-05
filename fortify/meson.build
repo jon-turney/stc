@@ -1,5 +1,6 @@
 tests = {
   'realloc': 'realloc_fortify.c',
+  'realloc3': 'realloc_fortify_3.c',
 }
 
 foreach name, sources : tests
