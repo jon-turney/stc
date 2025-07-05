@@ -1,4 +1,5 @@
 tests = {
+  'random_filenames': 'random_filenames.c',
   'socketpair_full': 'socketpair_full.c',
 }
 
