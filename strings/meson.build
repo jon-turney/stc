@@ -1,4 +1,5 @@
 tests = {
+  'wcstombs-utf8' : 'wcstombs-utf8.c',
   'wmemset': 'wmemset_test.c',
 }
 
