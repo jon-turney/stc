@@ -1,5 +1,6 @@
 tests = {
   'many_locks': 'many_locks.c',
+  'flock': 'flock.c',
 }
 
 foreach name, sources : tests
