@@ -32,7 +32,7 @@ static void *flock_call(void *arg) {
 #endif
 
   // open and lock dir
-  int dir_fd = open("/cygdrive/c/cygwin64/etc", O_RDONLY, 0);
+  int dir_fd = open("/etc", O_RDONLY, 0);
   if (dir_fd < 0) {
     printf("open dir error: %d - %s\n", errno, strerror(errno));
   }
