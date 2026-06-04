@@ -1,5 +1,5 @@
 project('cygwin-stc-collection', license: 'GPL-3.0-or-later', version: '0')
-add_languages('c')
+add_languages('c', native: false)
 
 subdir('compilation')
 subdir('coredump')
