@@ -9,6 +9,7 @@ subdir('filesystem')
 subdir('fortify')
 subdir('locale')
 subdir('pathconv')
+subdir('process')
 subdir('strings')
 
 subdir('broken')
