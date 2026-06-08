@@ -1,19 +1,26 @@
 name: stc
 on:
- push:
-   # since master is a symbolic reference to main, don't run for both
-   branches-ignore:
-     - 'master'
+  push:
+    # since master is a symbolic reference to main, don't run for both
+    branches-ignore:
+    - 'master'
+
+  workflow_dispatch:
 
 jobs:
   stc:
-    runs-on: windows-latest
-
     strategy:
       fail-fast: false
       matrix:
         include:
         - pkgarch: x86_64
+          runarch: x86_64
+          runner: windows-latest
+        - pkgarch: x86_64
+          runarch: arm64
+          runner: windows-11-arm
+
+    runs-on: ${{ matrix.runner }}
 
     steps:
     - run: git config --global core.autocrlf input
@@ -50,7 +57,7 @@ jobs:
     - name: Upload test logs
       uses: actions/upload-artifact@v7
       with:
-        name: stc-logs
+        name: stc-logs-${{ matrix.pkgarch }}-on-${{ matrix.runarch }}
         path: |
           _build/meson-logs
       if: ${{ !cancelled() }}
