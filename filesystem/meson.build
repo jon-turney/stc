@@ -1,4 +1,5 @@
 tests = {
+  'many_files': 'many_files.c',
   'many_locks': 'many_locks.c',
   'flock1': 'flock1.c',
   'flock2': 'flock2.c',
